@@ -1,0 +1,16 @@
+package com.veiculos.CadastroDeVeiculos;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping
+public class VeiculoController {
+
+    @GetMapping("/")
+    public String teste() {
+        return "Boas-vindas!";
+    }
+
+}
