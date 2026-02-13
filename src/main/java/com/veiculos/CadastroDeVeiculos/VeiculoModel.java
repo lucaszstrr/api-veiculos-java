@@ -8,10 +8,10 @@ public class VeiculoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String marca;
-    String modelo;
-    int ano;
+    private Long id;
+    private String marca;
+    private String modelo;
+    private int ano;
 
     public VeiculoModel() {
     }
