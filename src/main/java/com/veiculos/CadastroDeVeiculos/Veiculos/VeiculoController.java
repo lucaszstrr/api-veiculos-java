@@ -1,4 +1,4 @@
-package com.veiculos.CadastroDeVeiculos;
+package com.veiculos.CadastroDeVeiculos.Veiculos;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
