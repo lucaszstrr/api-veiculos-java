@@ -1,5 +1,6 @@
 package com.veiculos.CadastroDeVeiculos.Veiculos;
 
+import com.veiculos.CadastroDeVeiculos.Pessoas.PessoaModel;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,10 @@ public class VeiculoModel {
     private String marca;
     private String modelo;
     private int ano;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private PessoaModel pessoaId;
 
     public VeiculoModel() {
     }
