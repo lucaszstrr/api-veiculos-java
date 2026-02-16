@@ -19,6 +19,7 @@ public class PessoaModel {
 
     private String nome;
 
+    @Column(unique = true)
     private String email;
 
     @OneToMany(mappedBy = "pessoaId")
