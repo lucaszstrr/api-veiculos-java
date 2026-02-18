@@ -1,4 +1,6 @@
 package com.veiculos.CadastroDeVeiculos.Veiculos;
 
-public class VeiculoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VeiculoRepository extends JpaRepository<VeiculoModel, Long> {
 }
