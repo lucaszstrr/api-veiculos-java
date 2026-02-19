@@ -23,4 +23,8 @@ public class PessoaService {
         return pessoa.orElse(null);
     }
 
+    // Cadastrar pessoa
+    public PessoaModel cadastrarPessoa(PessoaModel pessoa) {
+        return pessoaRepository.save(pessoa);
+    }
 }
