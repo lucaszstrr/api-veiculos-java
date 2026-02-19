@@ -11,6 +11,15 @@ public class PessoaService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private PessoaMapper pessoaMapper;
+
+    // Cadastrar pessoa
+    public PessoaDTO cadastrarPessoa(PessoaDTO pessoaDTO) {
+        PessoaModel pessoa = pessoaMapper.map(pessoaDTO);
+        pessoa = pessoaRepository.save(pessoa);
+        return pessoaMapper.map(pessoa);
+    }
 
     // Listar pessoas
     public List<PessoaModel> listarPessoas() {
@@ -21,11 +30,6 @@ public class PessoaService {
     public PessoaModel listarPessoaPorId(Long id) {
         Optional<PessoaModel> pessoa = pessoaRepository.findById(id);
         return pessoa.orElse(null);
-    }
-
-    // Cadastrar pessoa
-    public PessoaModel cadastrarPessoa(PessoaModel pessoa) {
-        return pessoaRepository.save(pessoa);
     }
 
     // Atualizar pessoa
@@ -42,4 +46,5 @@ public class PessoaService {
     public void deletarPessoa(Long id) {
         pessoaRepository.deleteById(id);
     }
+
 }

@@ -14,7 +14,7 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @PostMapping("/pessoa")
-    public PessoaModel criarPessoa(@RequestBody PessoaModel pessoa) {
+    public PessoaDTO criarPessoa(@RequestBody PessoaDTO pessoa) {
         return pessoaService.cadastrarPessoa(pessoa);
     }
 
