@@ -1,5 +1,8 @@
 package com.veiculos.CadastroDeVeiculos.Pessoas;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PessoaMapper {
 
     public PessoaModel map(PessoaDTO pessoaDTO) {
