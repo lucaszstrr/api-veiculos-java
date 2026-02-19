@@ -29,8 +29,8 @@ public class PessoaController {
     }
 
     @PutMapping("/pessoa/{id}")
-    public void atualizarDados() {
-
+    public PessoaModel atualizarDados(@PathVariable Long id, @RequestBody PessoaModel pessoa) {
+        return pessoaService.atualizarPessoa(id, pessoa);
     }
 
     @DeleteMapping("/pessoa/{id}")
