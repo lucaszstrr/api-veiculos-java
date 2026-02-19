@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -22,21 +23,29 @@ public class PessoaService {
     }
 
     // Listar pessoas
-    public List<PessoaModel> listarPessoas() {
-        return pessoaRepository.findAll();
+    public List<PessoaDTO> listarPessoas() {
+        List<PessoaModel> pessoas = pessoaRepository.findAll();
+        return pessoas.stream()
+                .map(pessoaMapper::map)
+                .collect(Collectors.toList());
     }
 
     // Listar pessoa por ID
-    public PessoaModel listarPessoaPorId(Long id) {
+    public PessoaDTO listarPessoaPorId(Long id) {
         Optional<PessoaModel> pessoa = pessoaRepository.findById(id);
-        return pessoa.orElse(null);
+
+        return pessoa.map(pessoaMapper::map).orElse(null);
     }
 
     // Atualizar pessoa
-    public PessoaModel atualizarPessoa(Long id, PessoaModel pessoa) {
-        if (pessoaRepository.existsById(id)) {
+    public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
+        Optional<PessoaModel> pessoaExistente = pessoaRepository.findById(id);
+
+        if (pessoaExistente.isPresent()) {
+            PessoaModel pessoa = pessoaMapper.map(pessoaDTO);
             pessoa.setId(id);
-            return pessoaRepository.save(pessoa);
+            pessoaRepository.save(pessoa);
+            return pessoaMapper.map(pessoa);
         }
 
         return null;
