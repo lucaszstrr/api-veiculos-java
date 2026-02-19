@@ -27,4 +27,9 @@ public class PessoaService {
     public PessoaModel cadastrarPessoa(PessoaModel pessoa) {
         return pessoaRepository.save(pessoa);
     }
+
+    // Deletar pessoa
+    public void deletarPessoa(Long id) {
+        pessoaRepository.deleteById(id);
+    }
 }
