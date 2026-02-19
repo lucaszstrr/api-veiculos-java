@@ -1,5 +1,7 @@
 package com.veiculos.CadastroDeVeiculos.Pessoas;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.veiculos.CadastroDeVeiculos.Veiculos.VeiculoModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +25,7 @@ public class PessoaModel {
     private String email;
 
     @OneToMany(mappedBy = "pessoaId")
+    @JsonIgnore
     private List<VeiculoModel> veiculoId;
 
 }
