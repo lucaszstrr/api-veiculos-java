@@ -19,8 +19,8 @@ public class PessoaController {
     }
 
     @GetMapping("/pessoa/{id}")
-    public String mostrarPessoa() {
-        return "Pessoa por id";
+    public PessoaModel mostrarPessoa(@PathVariable Long id) {
+        return pessoaService.listarPessoaPorId(id);
     }
 
     @GetMapping("/pessoas")
