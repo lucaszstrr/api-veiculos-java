@@ -24,8 +24,8 @@ public class PessoaModel {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "pessoaId")
+    @OneToMany(mappedBy = "pessoa")
     @JsonIgnore
-    private List<VeiculoModel> veiculoId;
+    private List<VeiculoModel> veiculos;
 
 }
