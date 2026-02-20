@@ -11,7 +11,7 @@ public class VeiculoMapper {
         veiculoModel.setMarca(veiculoDTO.getMarca());
         veiculoModel.setModelo(veiculoDTO.getModelo());
         veiculoModel.setAno(veiculoDTO.getAno());
-        veiculoModel.setPessoaId(veiculoDTO.getPessoaId());
+        veiculoModel.setPessoa(veiculoDTO.getPessoa());
 
         return veiculoModel;
     }
@@ -22,7 +22,7 @@ public class VeiculoMapper {
         veiculoDTO.setMarca(veiculoModel.getMarca());
         veiculoDTO.setModelo(veiculoModel.getModelo());
         veiculoDTO.setAno(veiculoModel.getAno());
-        veiculoDTO.setPessoaId(veiculoModel.getPessoaId());
+        veiculoDTO.setPessoa(veiculoModel.getPessoa());
 
         return veiculoDTO;
     }

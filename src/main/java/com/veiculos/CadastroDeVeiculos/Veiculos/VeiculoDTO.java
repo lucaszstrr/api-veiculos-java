@@ -16,6 +16,6 @@ public class VeiculoDTO {
     private String marca;
     private String modelo;
     private int ano;
-    private PessoaModel pessoaId;
+    private PessoaModel pessoa;
 
 }
