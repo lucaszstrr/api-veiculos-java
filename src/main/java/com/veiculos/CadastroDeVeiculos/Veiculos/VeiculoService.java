@@ -46,4 +46,20 @@ public class VeiculoService {
                 .collect(Collectors.toList());
     }
 
+    // Lista todos os veiculos de um usuario por id
+    public List<VeiculoDTO> listarVeiculoPorId(Long id) {
+        List<VeiculoModel> veiculos = veiculoRepository.findAll();
+
+        PessoaModel proprietario = pessoaRepository.findById(id).orElse(null);
+
+        if (proprietario == null) {
+            return null;
+        }
+
+        return veiculos.stream()
+                .filter(veiculo -> veiculo.getPessoa() == proprietario)
+                .map(veiculoMapper::map)
+                .collect(Collectors.toList());
+    }
+
 }

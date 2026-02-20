@@ -26,12 +26,18 @@ public class VeiculoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(veiculoSalvo);
     }
 
-    @GetMapping("/veiculo/{id}")
-    public void mostrarVeiculo() {
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<List<VeiculoDTO>> mostrarVeiculo(@PathVariable Long id) {
+        List<VeiculoDTO> veiculosUsuario = veiculoService.listarVeiculoPorId(id);
 
+        if (veiculosUsuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(veiculosUsuario);
     }
 
-    @GetMapping("/veiculos")
+    @GetMapping("/listar")
     public ResponseEntity<List<VeiculoDTO>> mostrarTodosVeiculos() {
         List<VeiculoDTO> veiculos = veiculoService.listarVeiculos();
 
