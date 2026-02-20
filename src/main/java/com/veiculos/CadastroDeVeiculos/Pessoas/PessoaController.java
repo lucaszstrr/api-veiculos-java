@@ -19,23 +19,42 @@ public class PessoaController {
     @PostMapping("/pessoa")
     public ResponseEntity<String> criarPessoa(@RequestBody PessoaDTO pessoa) {
         pessoaService.cadastrarPessoa(pessoa);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Pessoa cadastrada com sucesso");
     }
 
     @GetMapping("/pessoa/{id}")
-    public PessoaDTO mostrarPessoa(@PathVariable Long id) {
-        return pessoaService.listarPessoaPorId(id);
+    public ResponseEntity<PessoaDTO> mostrarPessoa(@PathVariable Long id) {
+        PessoaDTO pessoa = pessoaService.listarPessoaPorId(id);
+
+        if (pessoa == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(pessoa);
     }
 
     @GetMapping("/pessoas")
-    public List<PessoaDTO> mostrarTodos() {
-        return pessoaService.listarPessoas();
+    public ResponseEntity<List<PessoaDTO>> mostrarTodos() {
+        List<PessoaDTO> pessoas = pessoaService.listarPessoas();
+
+        if (pessoas == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(pessoas);
     }
 
     @PutMapping("/pessoa/{id}")
-    public PessoaDTO atualizarDados(@PathVariable Long id, @RequestBody PessoaDTO pessoa) {
-        return pessoaService.atualizarPessoa(id, pessoa);
+    public ResponseEntity<PessoaDTO> atualizarDados(@PathVariable Long id, @RequestBody PessoaDTO pessoa) {
+        PessoaDTO pessoaAtualizar =  pessoaService.atualizarPessoa(id, pessoa);
+
+        if (pessoaAtualizar == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(pessoaAtualizar);
     }
 
     @DeleteMapping("/pessoa/{id}")
