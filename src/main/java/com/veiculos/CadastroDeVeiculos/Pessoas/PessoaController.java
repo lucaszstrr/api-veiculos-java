@@ -2,6 +2,9 @@ package com.veiculos.CadastroDeVeiculos.Pessoas;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +17,10 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @PostMapping("/pessoa")
-    public PessoaDTO criarPessoa(@RequestBody PessoaDTO pessoa) {
-        return pessoaService.cadastrarPessoa(pessoa);
+    public ResponseEntity<String> criarPessoa(@RequestBody PessoaDTO pessoa) {
+        pessoaService.cadastrarPessoa(pessoa);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Pessoa cadastrada com sucesso");
     }
 
     @GetMapping("/pessoa/{id}")
@@ -34,7 +39,14 @@ public class PessoaController {
     }
 
     @DeleteMapping("/pessoa/{id}")
-    public void deletarPessoa(@PathVariable Long id) {
-        pessoaService.deletarPessoa(id);
+    public ResponseEntity<String> deletarPessoa(@PathVariable Long id) {
+        if (pessoaService.listarPessoaPorId(id) != null) {
+            pessoaService.deletarPessoa(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Pessoa deletada com sucesso");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+               .body("Pessoa não encontrada");
     }
 }
