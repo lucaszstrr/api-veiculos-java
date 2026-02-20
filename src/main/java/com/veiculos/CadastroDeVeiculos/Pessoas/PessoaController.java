@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/pessoa")
 public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;
 
-    @PostMapping("/pessoa")
+    @PostMapping("/criar")
     public ResponseEntity<String> criarPessoa(@RequestBody PessoaDTO pessoa) {
         pessoaService.cadastrarPessoa(pessoa);
 
@@ -24,7 +24,7 @@ public class PessoaController {
                 .body("Pessoa cadastrada com sucesso");
     }
 
-    @GetMapping("/pessoa/{id}")
+    @GetMapping("/listar/{id}")
     public ResponseEntity<PessoaDTO> mostrarPessoa(@PathVariable Long id) {
         PessoaDTO pessoa = pessoaService.listarPessoaPorId(id);
 
@@ -35,7 +35,7 @@ public class PessoaController {
         return ResponseEntity.ok(pessoa);
     }
 
-    @GetMapping("/pessoas")
+    @GetMapping("/listar")
     public ResponseEntity<List<PessoaDTO>> mostrarTodos() {
         List<PessoaDTO> pessoas = pessoaService.listarPessoas();
 
@@ -46,7 +46,7 @@ public class PessoaController {
         return ResponseEntity.ok(pessoas);
     }
 
-    @PutMapping("/pessoa/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<PessoaDTO> atualizarDados(@PathVariable Long id, @RequestBody PessoaDTO pessoa) {
         PessoaDTO pessoaAtualizar =  pessoaService.atualizarPessoa(id, pessoa);
 
@@ -57,7 +57,7 @@ public class PessoaController {
         return ResponseEntity.ok(pessoaAtualizar);
     }
 
-    @DeleteMapping("/pessoa/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarPessoa(@PathVariable Long id) {
         if (pessoaService.listarPessoaPorId(id) != null) {
             pessoaService.deletarPessoa(id);
