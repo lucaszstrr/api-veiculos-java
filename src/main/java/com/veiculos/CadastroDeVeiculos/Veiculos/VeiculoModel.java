@@ -25,6 +25,6 @@ public class VeiculoModel {
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
-    private PessoaModel pessoaId;
+    private PessoaModel pessoa;
 
 }
