@@ -44,9 +44,15 @@ public class VeiculoController {
         return ResponseEntity.ok(veiculos);
     }
 
-    @PutMapping("/veiculo/{id}")
-    public void atualizarVeiculo() {
+    @PutMapping("/atualizar/{pessoa_id}/{veiculo_id}")
+    public ResponseEntity<VeiculoDTO> atualizarVeiculo(@PathVariable Long pessoa_id, @PathVariable Long veiculo_id, @RequestBody VeiculoDTO veiculoDTO) {
+        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(pessoa_id, veiculo_id, veiculoDTO);
 
+        if (veiculoAtualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(veiculoAtualizado);
     }
 
     @DeleteMapping("/veiculo/{id}")

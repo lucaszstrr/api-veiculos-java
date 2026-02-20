@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +61,35 @@ public class VeiculoService {
                 .filter(veiculo -> veiculo.getPessoa() == proprietario)
                 .map(veiculoMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    // Atualiza um veiculo de um usuario especifico
+    public VeiculoDTO atualizarVeiculo(Long pessoa_id, Long veiculo_id, VeiculoDTO veiculoDTO) {
+        PessoaModel proprietario = pessoaRepository.findById(pessoa_id).orElse(null);
+
+        if (proprietario == null) {
+            return null;
+        }
+
+        List<VeiculoModel> veiculos = veiculoRepository.findAll();
+
+        VeiculoModel veiculoAtualizar = veiculos.stream()
+                .filter(veiculo -> Objects.equals(veiculo.getPessoa(), proprietario))
+                .filter(veiculo -> Objects.equals(veiculo.getId(), veiculo_id))
+                .findFirst()
+                .orElse(null);
+
+        if (veiculoAtualizar == null) {
+            return null;
+        }
+
+        VeiculoModel veiculoNovo = veiculoMapper.map(veiculoDTO);
+
+        veiculoNovo.setId(veiculo_id);
+        veiculoNovo.setPessoa(proprietario);
+        veiculoRepository.save(veiculoNovo);
+
+        return veiculoMapper.map(veiculoNovo);
     }
 
 }
