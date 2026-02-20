@@ -55,8 +55,14 @@ public class VeiculoController {
         return ResponseEntity.ok(veiculoAtualizado);
     }
 
-    @DeleteMapping("/veiculo/{id}")
-    public void deletarVeiculo() {
+    @DeleteMapping("/deletar/{pessoa_id}/{veiculo_id}")
+    public ResponseEntity<VeiculoDTO> deletarVeiculo(@PathVariable Long pessoa_id, @PathVariable Long veiculo_id) {
+        VeiculoDTO veiculoDeletado = veiculoService.deletarVeiculo(pessoa_id, veiculo_id);
 
+        if (veiculoDeletado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(veiculoDeletado);
     }
 }

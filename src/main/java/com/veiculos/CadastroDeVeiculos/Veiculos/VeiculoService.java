@@ -92,4 +92,28 @@ public class VeiculoService {
         return veiculoMapper.map(veiculoNovo);
     }
 
+    // Deleta um veiculo de um usuario especifico
+    public VeiculoDTO deletarVeiculo(Long pessoa_id, Long veiculo_id) {
+        PessoaModel proprietario = pessoaRepository.findById(pessoa_id).orElse(null);
+
+        if (proprietario == null) {
+            return null;
+        }
+
+        List<VeiculoModel> veiculos = veiculoRepository.findAll();
+
+        VeiculoModel veiculoDeletar = veiculos.stream()
+                .filter(veiculo -> Objects.equals(veiculo.getPessoa(), proprietario))
+                .filter(veiculo -> Objects.equals(veiculo.getId(), veiculo_id))
+                .findFirst()
+                .orElse(null);
+
+        if (veiculoDeletar == null) {
+            return null;
+        }
+
+        veiculoRepository.delete(veiculoDeletar);
+
+        return veiculoMapper.map(veiculoDeletar);
+    }
 }
