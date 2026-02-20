@@ -1,14 +1,27 @@
 package com.veiculos.CadastroDeVeiculos.Veiculos;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/veiculo")
 public class VeiculoController {
 
-    @PostMapping("/veiculo")
-    public void criarVeiculo() {
+    @Autowired
+    private VeiculoService veiculoService;
 
+    @PostMapping("/criar/{id}")
+    public ResponseEntity<VeiculoDTO> criarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+        VeiculoDTO veiculoSalvo = veiculoService.cadastrarVeiculo(id, veiculoDTO);
+
+        if(veiculoSalvo == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(veiculoSalvo);
     }
 
     @GetMapping("/veiculo/{id}")
