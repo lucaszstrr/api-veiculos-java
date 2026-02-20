@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/veiculo")
 public class VeiculoController {
@@ -30,8 +32,10 @@ public class VeiculoController {
     }
 
     @GetMapping("/veiculos")
-    public void mostrarTodosVeiculos() {
+    public ResponseEntity<List<VeiculoDTO>> mostrarTodosVeiculos() {
+        List<VeiculoDTO> veiculos = veiculoService.listarVeiculos();
 
+        return ResponseEntity.ok(veiculos);
     }
 
     @PutMapping("/veiculo/{id}")

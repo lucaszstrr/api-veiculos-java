@@ -5,6 +5,9 @@ import com.veiculos.CadastroDeVeiculos.Pessoas.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class VeiculoService {
 
@@ -32,6 +35,15 @@ public class VeiculoService {
 
         return veiculoMapper.map(veiculoModel);
 
+    }
+
+    // Lista todos os veiculos
+    public List<VeiculoDTO> listarVeiculos() {
+        List<VeiculoModel> veiculos = veiculoRepository.findAll();
+
+        return veiculos.stream()
+                .map(veiculoMapper::map)
+                .collect(Collectors.toList());
     }
 
 }
